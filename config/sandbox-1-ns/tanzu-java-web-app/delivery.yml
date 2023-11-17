@@ -72,5 +72,5 @@ spec:
             path: /readyz
             port: 8080
             scheme: HTTP
-      serviceAccountName: defaul
+      serviceAccountName: default
 
