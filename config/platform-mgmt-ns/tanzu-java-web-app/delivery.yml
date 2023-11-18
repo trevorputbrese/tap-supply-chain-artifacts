@@ -31,6 +31,8 @@ spec:
           spring-boot-convention/app-live-view-connector-boot
           spring-boot-convention/app-live-view-appflavours-boot
         developer.conventions/target-containers: workload
+        kubectl.kubernetes.io/last-applied-configuration: |
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"tanzu-java-web-app","apps.tanzu.vmware.com/has-tests":"true","apps.tanzu.vmware.com/workload-type":"web"},"name":"tanzu-java-web-app","namespace":"platform-mgmt-ns"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"testing_pipeline_matching_labels","value":{"apps.tanzu.vmware.com/language":"java","apps.tanzu.vmware.com/pipeline":"test"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/trevorputbrese/tanzu-java-web-app"}}}}
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: tanzu-java-web-app
@@ -49,7 +51,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: tputbrese.azurecr.io/tap1.7-apps/tanzu-java-web-app-sandbox-1-ns@sha256:e9e53a06bdda4445dc4470ad1d8e689655cb5cfa1e15513ce000121b29813994
+        image: tputbrese.azurecr.io/tap1.7-apps/tanzu-java-web-app-platform-mgmt-ns@sha256:91d0f7af3604c40dbe82ed1c5170daf42699d494097d71c90299980487e9771c
         livenessProbe:
           httpGet:
             path: /livez
