@@ -16,12 +16,18 @@ spec:
   template:
     metadata:
       annotations:
-        apps.tanzu.vmware.com/correlationid: https://github.com/trevorputbrese/rails-7-demo?sub_path=/
+        apps.tanzu.vmware.com/correlationid: tputbrese.azurecr.io/tap1.6-apps-live-update:latest?sub_path=/
+        apps.tanzu.vmware.com/debug: "true"
+        apps.tanzu.vmware.com/live-update: "true"
+        autoscaling.knative.dev/maxScale: "1"
         autoscaling.knative.dev/minScale: "1"
         conventions.carto.run/applied-conventions: |-
           appliveview-sample/app-live-view-appflavour-check
+          developer-conventions/debug-convention
+          developer-conventions/add-source-image-label
           spring-boot-convention/auto-configure-actuators-check
           spring-boot-convention/app-live-view-appflavour-check
+        developer.apps.tanzu.vmware.com/image-source-digest: tputbrese.azurecr.io/tap1.6-apps-live-update:latest@sha256:12983d42056a51d1daaddd6c03261659abd1df2908cefef9870a34a3c91a6551
         developer.conventions/target-containers: workload
       labels:
         app.kubernetes.io/component: run
@@ -34,7 +40,11 @@ spec:
       - env:
         - name: SECRET_KEY_BASE
           value: some-secret-key-base
-        image: tputbrese.azurecr.io/tap1.7-apps/immigration-messages-sandbox-1-ns@sha256:d9a45ec9abfccdbc80b60bd91afb47b9281d0b9245e1fd0a9783ecadb4a95a23
+        - name: BPL_DEBUG_ENABLED
+          value: "true"
+        - name: BPL_DEBUG_PORT
+          value: "9005"
+        image: tputbrese.azurecr.io/tap1.7-apps/immigration-messages-sandbox-1-ns@sha256:63bf5bd2626c5e6977077e44d1d184b5e0aa52d89117e806c24eb7cd5df199d5
         name: workload
         resources: {}
         securityContext:
